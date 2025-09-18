@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动填充测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .login-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0,123,255,0.3);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        .test-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .test-info h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>登录测试</h2>
+        <form id="loginForm" method="post" action="/login">
+            <div class="form-group">
+                <label for="username">用户名/邮箱:</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名或邮箱" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" required>
+            </div>
+            
+            <button type="submit" class="login-btn" id="loginButton">登录</button>
+        </form>
+        
+        <div class="test-info">
+            <h3>测试说明:</h3>
+            <p>1. 输入用户名和密码</p>
+            <p>2. 点击登录按钮</p>
+            <p>3. 检查控制台日志，确认自动填充功能是否正常捕获表单数据</p>
+            <p>4. 验证是否弹出保存密码对话框</p>
+        </div>
+    </div>
+
+    <script>
+        // 添加表单提交事件监听，用于测试
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止实际提交
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            console.log('表单提交事件触发:');
+            console.log('用户名:', username);
+            console.log('密码:', password ? '***' : '(空)');
+            
+            // 模拟登录成功
+            alert('测试提交成功！\n用户名: ' + username + '\n密码: ' + (password ? '***' : '(空)'));
+        });
+        
+        // 添加输入框变化监听
+        document.getElementById('username').addEventListener('input', function(e) {
+            console.log('用户名输入变化:', e.target.value);
+        });
+        
+        document.getElementById('password').addEventListener('input', function(e) {
+            console.log('密码输入变化:', e.target.value ? '***' : '(空)');
+        });
+        
+        // 页面加载完成后的日志
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('测试页面加载完成');
+            console.log('表单元素:', document.getElementById('loginForm'));
+            console.log('用户名输入框:', document.getElementById('username'));
+            console.log('密码输入框:', document.getElementById('password'));
+            console.log('登录按钮:', document.getElementById('loginButton'));
+        });
+    </script>
+</body>
+</html>
